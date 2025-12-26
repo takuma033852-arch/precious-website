@@ -1,0 +1,27 @@
+name: Deploy to Lolipop FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Deploy to Lolipop FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp-1.lolipop.jp
+          username: boyfriend.jp-precious-2020
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /home/users/0/boyfriend.jp-precious-2020/web/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.github/**
